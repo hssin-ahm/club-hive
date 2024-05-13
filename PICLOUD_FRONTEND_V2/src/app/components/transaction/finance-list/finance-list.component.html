@@ -1,0 +1,44 @@
+
+<h1>Treasury Value: {{calculateTreasuryValue()}}D</h1>
+
+
+
+
+<!-- Button trigger lg modal -->
+<button class="btn btn-primary align-right" (click)="openLgModal(lgModal)">Add Transaction</button>
+<!-- Modal -->
+<ng-template #lgModal let-modal>
+  
+    <app-finance-create></app-finance-create>
+    
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="reloadPage()">Close</button>
+
+  </div>
+</ng-template>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Giver</th>
+        <th>Receiver</th>
+        <th>Amount</th>
+        <th>Transaction Type</th>
+        <th>Transaction Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let finance of finances">
+        <td>{{finance.giver}}</td>
+        <td>{{finance.receiver}}</td>
+        <td>{{finance.amount}}</td>
+        <td>
+            <span [ngStyle]="{'background-color': getTransactionTypeColor(finance.transactionType)}">{{finance.transactionType}}</span>
+          </td>
+        <td>{{finance.transactionDate | date}}</td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteFinance(finance.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

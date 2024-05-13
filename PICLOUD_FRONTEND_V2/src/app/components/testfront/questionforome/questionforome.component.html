@@ -1,0 +1,26 @@
+<div *ngFor="let q of questionforome" class="question">
+    <div class="user-info">
+        <img src="{{ q.userimage }}" alt="User Image">
+        <span>{{ q.username }}</span>
+    </div>
+    
+    <div class="question-details">
+        <div class="question-body">
+            <strong>The question:</strong>
+            <p>{{ q.body }}</p>
+        </div>
+        <div class="question-metadata">
+            <span>{{ q.createdAt | date: 'medium' }}</span>
+        </div>
+    </div>
+    
+    <div class="response-details" *ngIf="q.response">
+        <div class="response-body">
+            <strong>The response:</strong>
+            <p>{{ q.response }}</p>
+        </div>
+        <div class="response-metadata">
+            <span>{{ q.repliedAt | date: 'medium' }}</span>
+        </div>
+    </div>
+</div>

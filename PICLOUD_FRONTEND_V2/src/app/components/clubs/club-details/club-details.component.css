@@ -1,0 +1,69 @@
+.club-details {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+}
+
+.club-info p {
+    margin-bottom: 10px;
+}
+
+.club-info button {
+    margin-top: 15px;
+}
+/* CSS for Vertical Dashboard */
+.dashboard {
+    display: flex;
+  }
+  
+  .vertical-dashboard {
+    width: 200px; /* Adjust width as needed */
+    background-color: #333; /* Background color of the dashboard */
+    padding: 20px;
+  }
+  
+  .vertical-dashboard ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .vertical-dashboard li {
+    margin-bottom: 10px;
+  }
+  
+  .vertical-dashboard a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .vertical-dashboard a:hover {
+    background-color: #555;
+  }
+  
+  .sub-items {
+    display: none; /* Hide sub-items by default */
+  }
+  
+  .sub-item {
+    padding: 8px;
+    border-bottom: 1px solid #555; 
+    border-radius: 3px;
+    background-color: #4CAF50;
+    display: none;
+  }
+  
+  .sub-item:last-child {
+    border-bottom: none; /* Remove border for the last sub-item */
+  }
+  
+  .sub-item:hover {
+    background-color: #555; /* Change background color on hover */
+  }
+  

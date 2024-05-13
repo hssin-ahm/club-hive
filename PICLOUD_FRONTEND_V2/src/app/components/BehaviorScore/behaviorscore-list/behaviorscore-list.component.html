@@ -1,0 +1,33 @@
+<p class="mat-title score">Total Score: <span class="mat-display-1">{{totalScore}}</span></p>
+
+<button type="button" class="btn btn-primary btn-icon-text" (click)="goToCreateBehavior()">
+  <i class="feather icon-check-square btn-icon-prepend"></i>
+  Add a Score
+</button>
+<table class="table">
+  <thead>
+    <tr>
+      
+      <th>ID</th>
+      <th>Behavior Type</th>
+      <th>Score</th>
+      <th>Date Recorded</th>
+      <th>Description</th>
+      <th>Actions</th> <!-- New column for actions -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let behaviorScore of behaviorScores">
+     
+      <td>{{ behaviorScore.id }}</td>
+      <td>{{ behaviorScore.behaviorType }}</td>
+      <td>{{ behaviorScore.score }}</td>
+      <td>{{ behaviorScore.dateRecorded }}</td>
+      <td>{{ behaviorScore.description }}</td>
+      <td> <!-- New column for actions -->
+        
+        <button class="btn btn-danger" (click)="deleteBehaviorScore(behaviorScore.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

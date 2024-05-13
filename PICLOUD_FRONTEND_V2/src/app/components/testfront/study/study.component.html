@@ -1,0 +1,60 @@
+<main class="main-wrapper">
+  <div class="container-fluid">
+    <h1>Study Space</h1>
+    <p>Good luck!</p>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>
+          prepare yourself to pass the quiz: <b>{{ test.title }}</b>
+        </h3>
+        <div *ngFor="let q of test.questions">
+          <div class="card-body">
+            <h4 style="color: red">theme:</h4>
+            <p>{{ q.image }}</p>
+            <h4 style="color: red">anecdote:</h4>
+            <p>{{ q.anecdote }}</p>
+            <h4 style="color: red">wikipedia lik:</h4>
+            <a href="{{ q.wikipedia }}" target="_blank"
+              >Visit Wikipedia for more information</a
+            >
+            <button class="btn btn-primary" (click)="openIFrame(q.wikipedia)">
+              Open Wikipedia Here
+            </button>
+          </div>
+
+          <!--<div style="background-color: rgb(228, 249, 255);">
+            <h2>questions form :</h2>
+          list of questions:
+          <div>
+            <app-questionforome [idOfTheQuestion]="q.id" [refresh]="refreshQuestionForome"></app-questionforome>
+          </div>
+          <h3>You need help ? ,just ask and we will anser  </h3>
+          <input type="text" #questionBody placeholder="Your question" class="form-control">
+<button (click)="asksomeone(questionBody.value, connecteduser.id, connecteduser.userimage, connecteduser.username, q.id.toString())" class="btn btn-primary btn-sm rounded-1">Ask</button>
+
+          
+          </div>-->
+
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div>
+            <br>
+            <button class="btn btn-primary" (click)="currentIframeUrl=!currentIframeUrl">search in youtube</button>
+            <div  *ngIf="!currentIframeUrl">
+            
+            <app-youtube></app-youtube>
+            
+            </div>
+          <iframe
+            *ngIf="currentIframeUrl"
+            [src]="currentIframeUrl"
+            title="Wikipedia"
+            width="95%"
+            height="1500px"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

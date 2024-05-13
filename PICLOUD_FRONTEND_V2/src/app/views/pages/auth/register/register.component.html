@@ -1,0 +1,65 @@
+<div class="row w-100 mx-0 auth-page">
+  <div class="col-md-8 col-xl-6 mx-auto">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="auth-form-wrapper px-4 py-5">
+            <a routerLink="." class="nobleui-logo d-block mb-2">CLUB<span>HIVE</span></a>
+            <h5 class="text-muted fw-normal mb-4">Create a free account.</h5>
+
+            <div *ngIf="registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').touched" class="alert alert-danger">
+              <p *ngIf="registerForm.get('confirmPassword').errors['required']">Confirm Password is required.</p>
+              <p *ngIf="registerForm.get('confirmPassword').errors['passwordMismatch']">Passwords do not match.</p>
+          </div>
+
+          <div *ngIf="registerForm.get('password').errors && registerForm.get('password').touched" class="alert alert-danger">
+            <p *ngIf="registerForm.get('password').errors['required']">Password is required.</p>
+            <p *ngIf="registerForm.get('password').errors['minlength']">Password should have at least 8 characters.</p>
+        </div>
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+        <div *ngIf="registerForm.get('email').errors && registerForm.get('email').touched" class="alert alert-danger">
+          <p *ngIf="registerForm.get('email').errors['required']">Email is required.</p>
+          <p *ngIf="registerForm.get('email').errors['email']">Email must be a valid email address.</p>
+          <p *ngIf="registerForm.get('email').errors['emailTaken']">Email is already taken.</p>
+      </div>
+
+      <div *ngIf="submitted && registerForm.get('profileImage').hasError('required')" class="alert alert-danger">
+        Profile image is required.
+      </div>
+            <form [formGroup]="registerForm" (ngSubmit)="submitForm()" class="forms-sample">
+              <div class="mb-3">
+                <label for="exampleInputUsername1" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="exampleInputUsername1" autocomplete="Username" formControlName="name" placeholder="Username">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" formControlName="email">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password" autocomplete="current-password" placeholder="Password">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" formControlName="confirmPassword" id="exampleInputPassword2" autocomplete="current-password" placeholder="Password">
+              </div>
+
+              <div class="mb-3">
+                <label for="profileImage" class="form-label">Profile Image</label>
+                <input type="file" class="form-control" id="profileImage" (change)="onFileSelect($event)" required>
+              </div>
+              
+
+              <div>
+                <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0 w-100">Sign up</button>
+              </div>
+              <a routerLink="/auth/login" class="d-block mt-3 text-muted">Already a user? Sign in</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

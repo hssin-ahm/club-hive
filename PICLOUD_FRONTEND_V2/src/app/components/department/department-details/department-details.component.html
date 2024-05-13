@@ -1,0 +1,26 @@
+<!-- department-details.component.html -->
+
+<div class="department-details-container">
+    <div *ngIf="responsable" class="responsable-section">
+      <h2>Responsable</h2>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ responsable.name }} {{ responsable.email }}</h5>
+        </div>
+      </div>
+    </div>
+  
+    <div class="members-section">
+      <h2>Members in Department</h2>
+      <div class="list-group">
+        <a *ngFor="let user of users"  class="list-group-item list-group-item-action">
+          {{ user.name }} 
+          <button  class="btn btn-danger" (click)="deleteuser(user.id)">
+             Delete
+          </button>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+  

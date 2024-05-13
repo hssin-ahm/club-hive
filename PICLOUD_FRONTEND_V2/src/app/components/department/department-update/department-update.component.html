@@ -1,0 +1,32 @@
+<!-- department-update.component.html -->
+
+<p>Update Department</p>
+
+<div class="update-department-form">
+  <form (submit)="updateDepartment()">
+  
+
+    <div class="form-group">
+      <h3>Add Members</h3>
+      <select multiple class="form-control" [(ngModel)]="selectedUsers" [ngModelOptions]="{ standalone: true }" style="height: 300px;" >
+        <option *ngFor="let user of users" [ngValue]="user">Name : {{ user.name }} <==========> Email: {{user.email}}</option>
+      </select>
+      <button type="button" class="btn btn-primary mt-2" (click)="addSelectedMember()">Add Members</button>
+    </div>
+
+    <div class="form-group">
+      <h3>Selected Members</h3>
+      <ul class="list-group">
+        <li *ngFor="let member of selectedMembers" class="list-group-item">
+            {{ member.name }} ******* {{member.email}}
+          <button type="button" class="btn btn-danger btn-sm float-right" (click)="cancelSelection(member)">Cancel</button>
+        </li>
+      </ul>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="isUpdating">Update</button>
+
+    <div *ngIf="updateSuccessMessage" class="alert alert-success mt-3" role="alert">{{ updateSuccessMessage }}</div>
+    <div *ngIf="updateErrorMessage" class="alert alert-danger mt-3" role="alert">{{ updateErrorMessage }}</div>
+  </form>
+</div>

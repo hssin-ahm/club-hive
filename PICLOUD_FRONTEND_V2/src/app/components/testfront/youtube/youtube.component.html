@@ -1,0 +1,27 @@
+<p>youtube works!</p>
+<div>
+  <input type="text" [(ngModel)]="search.keyword" placeholder="Search" />
+  <button (click)="searchYoutube()">search</button>
+</div>
+
+
+
+<div *ngIf="isLoading">Loading...</div>
+
+<div *ngIf="error">
+  {{ error }}
+</div>
+
+<div *ngIf="response.items">
+  <div *ngFor="let item of response.items.reverse()">
+    <div>{{ item.snippet.title }}</div>
+    <iframe
+      [src]="getVideoSource(item.id.videoId)"
+      width="560"
+      height="315"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+
+  </div>
+</div>

@@ -1,0 +1,37 @@
+
+<button (click)="ref()">refrsh</button>
+<table class="table table-striped">
+  
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Contact Info</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr >
+        <td>{{ club.id }}</td>
+        <td>{{ club.name }}</td>
+        <td>{{ club.description }}</td>
+        <td>{{ club.contactInfo }}</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-outline-warning" (click)="goToClubDetails(club.id)" [@fadeAnimation]>
+              <i class="bi bi-eye"></i> View Details
+            </button>
+            <button type="button" class="btn btn-outline-success" (click)="editClub(club.id)" [@fadeAnimation]>
+              <i class="bi bi-pencil"></i> Edit
+            </button>
+           <!--<button type="button" class="btn btn-outline-danger" (click)="deleteClub(club.id)" [@fadeAnimation]>
+              <i class="bi bi-trash"></i> Delete
+            </button>-->
+          </div>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

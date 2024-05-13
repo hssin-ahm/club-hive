@@ -1,0 +1,33 @@
+
+<!--<button class="btn btn-primary mb-3" style="font-weight: bold;"(click)="goToCreateClub()">Create Club</button-->>
+
+<table class="table table-striped">
+  
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Contact Info</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let club of clubs">
+        <td>{{ club.id }}</td>
+        <td>{{ club.name }}</td>
+        <td>{{ club.description }}</td>
+        <td>{{ club.contactInfo }}</td>
+        <td>
+         
+           
+          <button type="button" class="btn btn-danger" (click)="deleteClub(club.id)">
+            <i class="bi-trash">Delete</i> 
+          </button>
+        
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  

@@ -1,0 +1,33 @@
+<form  [formGroup]="financeForm" (ngSubmit)="onSubmit()" class="mt-5">
+    <div class="form-group">
+      <label>Giver:</label>
+      <input type="text" formControlName="giver" class="form-control">
+    </div>
+  
+    <div class="form-group">
+      <label>Receiver:</label>
+      <input type="text" formControlName="receiver" class="form-control">
+    </div>
+  
+    <div class="form-group">
+      <label>Amount:</label>
+      <input type="number" formControlName="amount" class="form-control">
+    </div>
+  
+    <div class="form-group">
+      <label>Transaction Type:</label>
+      <select formControlName="transactionType" class="form-control">
+        <option *ngFor="let type of transactionTypes" [value]="type">{{type}}</option>
+      </select>
+    </div>
+  
+   
+  
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+
+    <div *ngIf="message">
+      <span>{{message}}</span>
+    </div>
+

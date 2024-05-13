@@ -1,0 +1,20 @@
+
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <h6 class="card-title">Clubs</h6>
+      <owl-carousel-o [options]="autoPlayExampleOptions">
+        <ng-template carouselSlide *ngFor="let club of finalclubs ">
+          <div class="card mb-10" (click)="goToAvailableTest(club.id)" data-toggle="tooltip" data-placement="top" title="Click to join us">
+            <img class="img-fluid" src="http://127.0.0.1/img/{{club.logo}}" alt="" style="object-fit: cover; width: 350px; height: 200px;">
+            <div class="card__content">
+              <p class="card__title">{{club.name}}</p>
+              <p class="card__description">{{club.contactInfo}}<br/>{{club.description}}.<br/></p>
+            </div>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+  

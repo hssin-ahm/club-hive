@@ -1,0 +1,48 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Members list</h6>
+          <div class="table-responsive">
+            <table id="dataTableExample" class="table">
+              <thead>
+        <tr>
+          <th>***</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+         
+        </tr>
+        <tr *ngFor="let member of users; let i = index">
+          <td><img class="img-fluid" src="http://127.0.0.1/img/{{member.profileImage}}" alt="" style="object-fit: cover; width: 50px; height: 50px;"></td>
+          <td>{{ member.name }}</td>
+          <td>{{ member.email }}</td>
+          <td>
+            
+            <button      class="btn btn-primary" (click)="redirectToCreateBehaviorScore(member.id)">Go to (his/her) Behavior </button>
+            <button    class="btn btn-danger" (click)="deleteMember(member.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+         
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+ <!-- <ngb-pagination [collectionSize]="70" [(page)]="page" aria-label="Default pagination" />-->

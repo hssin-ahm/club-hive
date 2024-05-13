@@ -1,0 +1,15 @@
+.dashboard {
+    display: flex;
+  }
+  
+  .vertical-dashboard {
+    width: 200px; 
+    background-color: #333; 
+    padding: 20px;
+  }
+  
+  .table-responsive {
+    flex: 1; /* Take up the remaining width */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+  }
+  

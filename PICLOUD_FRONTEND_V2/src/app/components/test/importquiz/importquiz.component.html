@@ -1,0 +1,40 @@
+
+
+    <div class="card border-0">
+        <div class="card-body">
+            <div class="d-flex justify-content-between mb-0">
+                <div class="card-content">
+                    <h5 class="fw-semibold text-gray mb-1">openquizzdb</h5>
+                    <h3 class="text-dark mb-1">www.openquizzdb.org</h3>
+                </div>
+                <div class="dropdown">
+                    <a href="#" data-bs-toggle="dropdown" class="fs-24">
+                        <i class="bi bi-three-dots-vertical"></i>
+                    </a>
+                    <div class="dropdown-menu p-0">
+                        <a class="dropdown-item" href="https://www.openquizzdb.org/" target="_blank">Visit website</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Middle Content -->
+            <div>
+                <h5 class="fw-semibold text-gray mb-1">Fournisseur de
+                    contenu libre
+                    depuis 2007</h5>
+                <p class="fs-14 text-dark">OpenQuizzDB fournit tous ses contenus gratuitement, sans publicité, et sans recourir à l'exploitation des données personnelles de ses utilisateurs.</p>
+            </div>
+            <label for="jsonFile"
+                class="custom-file-upload badge py-3 px-5 rounded-1 badge-soft-primary ff-heading fs-14 fw-bold">
+                <input type="file" id="jsonFile" (change)="importjson($event)">
+                Choose a JSON file
+            </label>
+        </div>
+    </div>
+
+
+<!--<div *ngFor="let q of allquestionsnotansered" class="question-container">
+    <div class="question-body">Question: {{ q.body }}</div>
+    <div class="question-date">Date: {{ q.createdAt }}</div>
+    <input type="text" #replyText class="reply-input" />
+    <button (click)="replyToADevolopper(q.questionId, q.id)" class="reply-button">Reply</button>
+  </div>-->

@@ -1,0 +1,36 @@
+
+
+
+
+<div class="container">
+  
+  <p class="display-4">Edit Club</p>
+  <form [formGroup]="clubForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" formControlName="name">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" class="form-control" id="description" formControlName="description">
+    </div>
+
+    <div class="form-group">
+      <label for="contactInfo">Contact Info:</label>
+      <input type="text" class="form-control" id="contactInfo" formControlName="contactInfo">
+    </div>
+
+    <!--<div class="form-group">
+      <label for="logo">Logo:</label>
+      <input type="text" class="form-control" id="logo" formControlName="logo">
+    </div>-->
+
+    <button type="submit" class="btn btn-primary">Update Club</button>
+  </form>
+
+  <!-- Display update message -->
+  <div *ngIf="updateMessage" class="alert alert-success mt-3" role="alert">
+    {{ updateMessage }}
+  </div>
+</div>

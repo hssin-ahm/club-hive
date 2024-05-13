@@ -1,0 +1,39 @@
+
+  
+  .custom-file-upload:hover {
+    background-color: #e6e6e6;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+
+
+  .question-container {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+
+  .question-body {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .question-date {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .reply-input {
+    margin-bottom: 5px;
+  }
+
+  .reply-button {
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }

@@ -1,0 +1,40 @@
+.question {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-info span {
+    font-weight: bold;
+}
+
+.question-details {
+    margin-bottom: 10px;
+}
+
+.question-metadata {
+    color: #888;
+    font-size: 12px;
+}
+
+.response-details {
+    background-color: #f9f9f9;
+    border-left: 3px solid #ccc;
+    padding: 10px;
+}
+
+.response-details .response-body {
+    margin-bottom: 5px;
+}
+
+.response-metadata {
+    color: #888;
+    font-size: 12px;
+}

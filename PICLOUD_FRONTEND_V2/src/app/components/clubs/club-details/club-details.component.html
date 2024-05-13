@@ -1,0 +1,40 @@
+
+
+
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Your existing club details card -->
+    <div *ngIf="club" class="club-details card">
+      <div class="card-header">
+        <h2>Club Details</h2>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8">
+            <ul>
+              <li><strong>ID:</strong> {{ club.id }}</li>
+              <li><strong>Name:</strong> {{ club.name }}</li>
+              <li><strong>Description:</strong> {{ club.description }}</li>
+              <li><strong>Contact Info:</strong> {{ club.contactInfo }}</li>
+            </ul>
+            <button class="btn btn-primary " (click)="openLgModal(lgModal)">Update Club</button>
+<!-- Modal -->
+<ng-template #lgModal let-modal>
+  
+    <app-club-edit></app-club-edit>
+    
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="reloadPage()">Close</button>
+
+  </div>
+</ng-template>
+          </div>
+          
+          <div class="col-md-4">
+            <!-- Add the image here -->
+            <img class="img-fluid" src="http://127.0.0.1:8080/img/{{club.logo}}" alt="" style="object-fit: cover; width: 50%; height: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

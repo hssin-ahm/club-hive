@@ -1,0 +1,73 @@
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="mt-4">
+    <div class="form-group">
+        <label>Event Name:</label>
+        <input type="text" formControlName="eventTitle" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Event Description:</label>
+        <input type="text" formControlName="eventDescription" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Upload Image:</label>
+        <!-- <input type="file" id="image" (change)="onFileChange($event)" accept="image/png, image/jpeg, image/jpg, image/gif" class="form-control-file"> -->
+   
+        <div class="row">
+          <div class="col-md-8">
+            <div class="mb-3">
+              <input class="form-control" type="file" id="cropperImageUpload" (change)="handleFileInput($event)">
+            </div>
+            <div>
+              <angular-cropper #angularCropper [cropperOptions]="config" [imageUrl]="imageUrl"></angular-cropper>
+            </div>
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+              <div class="d-flex align-items-center flex-wrapp me-2 mt-3">
+                <p class="btn btn-primary crop mb-2 mb-md-0" (click)="cropImage()">Crop me</p>
+              </div>
+              <div class="mb-4 mb-md-0 mt-3">
+                <a href="" class="btn btn-outline-primary download" download="imageName.png">Download croped image</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ms-auto">
+            <h6 class="text-muted mb-3">Cropped Image: </h6>
+            <img class="w-100 cropped-img mt-2" src="{{resultImage}}" alt="">
+          </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Nombre Maximum des participants:</label>
+     
+        <input type="number" formControlName="maxParticipants" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Type d'evenement:</label>
+        <select formControlName="eventType" class="form-control">
+            <option *ngFor="let eventType of eventTypes" [value]="eventType">{{eventType}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Event Date:</label>
+        <input type="datetime-local" formControlName="startDate" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>end Date</label>
+        <input type="datetime-local" formControlName="endDate" class="form-control">
+    </div>
+    <div class="form-group">
+        <label>Event Location:</label>
+        <input type="text" formControlName="location" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="isFree">Is the event free?</label>
+      <input type="checkbox" id="isFree" formControlName="isFree">
+    </div>
+   
+    <div *ngIf="!eventForm.get('isFree').value" class="form-group">
+      <label for="price">Price</label>
+      <input type="number" id="price" formControlName="price">
+    </div>
+    <input type="hidden" formControlName="creator" class="form-control">
+   
+   
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>

@@ -1,0 +1,101 @@
+<!-- Main Wrapper-->
+<main class="main-wrapper">
+    <div class="container">
+        <div class="inner-contents">
+            <app-zenquotes></app-zenquotes>
+            <div class="row">
+                
+            </div>
+            <div class=" d-flex align-items-center justify-content-between mr-bottom-30">
+                <div class="left-part">
+                    <h2 class="text-dark">Available tests !</h2>
+                    <p class="text-gray mb-0">chose a test to pass</p>
+                </div>
+                <div class="right-part d-flex align-items-center">
+
+                    <div class="filtering d-flex align-items-center gap-3 ms-3" *ngIf="gridview">
+                        <a class="btn list-view p-0 fs-30" (click)="toListView()"><i class="bi bi-list"></i></a>
+                        <a class="btn grid-view p-0 fs-30 active"><i class="bi bi-grid"></i></a>
+                    </div>
+                    <div class="filtering d-flex align-items-center gap-3 ms-3" *ngIf="listview">
+                        <a class="btn list-view p-0 fs-30 active"><i class="bi bi-list"></i></a>
+                        <a class="btn grid-view p-0 fs-30 " (click)="toGridView()"><i class="bi bi-grid"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row " *ngIf="gridview">
+                <div class="col-xxl-4 col-lg-6 d-flex"  *ngFor="let t of getActiveTests().reverse() ">
+
+                    <div class="card border-0 " style="background-color: rgb(229, 222, 236);">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between gap-4">
+                                <div class="avatar-img w-auto rounded-2 overflow-hidden flex-shrink-0">
+                                    <img [src]="t.image.startsWith('http') ? t.image : '/' + t.image" width="350px">
+                                </div>
+                            </div>
+                            <div class="card-content mt-4">
+                                <h5 class="mb-1">{{ t.title }} <br>- <span class="text-primary">{{ t.description
+                                        }}</span>
+                                </h5>
+                                <small class="d-inline-block text-gray fs-14 fw-normal">number of questions: {{
+                                    t.questions.length }}</small>
+                            </div>
+                            <div
+                                class="d-flex align-items-center justify-content-between gap-3 flex-wrap btn-width-equal mt-4">
+                                <a [routerLink]="['../passatest', t.id]"
+                                    class="btn btn-primary ff-heading fs-14 fw-bold">Start the Test</a>
+
+                            </div>
+                              <div
+                                class="d-flex align-items-center justify-content-between gap-3 flex-wrap btn-width-equal mt-4">
+                              <a [routerLink]="['../study', t.id]"
+                                    class="btn btn-primary ff-heading fs-14 fw-bold">Study before the test</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" *ngIf="listview">
+                <div class="col-md-12">
+                    <div class="list-group">
+                        <div *ngFor="let t of getActiveTests().reverse() "
+                            class="list-group-item list-group-item-action">
+                            <div class="row" style="background-color: rgb(252, 246, 255);">
+                                <div class="col-md-3">
+                                    <div class="avatar-img w-auto rounded-2 overflow-hidden flex-shrink-0">
+                                        <img [src]="t.image.startsWith('http') ? t.image : '/' + t.image" alt="img" class="img-fluid" width="100%">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="mt-4">
+                                        <h5 class="mb-1">{{ t.title }}</h5>
+                                        <p class="text-primary mb-1">{{ t.description }}</p>
+                                        <p class="text-gray fs-14 fw-normal">Number of questions: {{ t.questions.length }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="mt-3">
+                                        <a [routerLink]="['../passatest', t.id]" class="btn btn-primary ff-heading fs-14 fw-bold">Start the Test</a>
+                                    </div>
+                                    <div class="mt-3">
+                                        <a [routerLink]="['../study', t.id]" class="btn btn-primary ff-heading fs-14 fw-bold">Study before the test</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           
+
+
+        </div>
+    </div>
+</main>

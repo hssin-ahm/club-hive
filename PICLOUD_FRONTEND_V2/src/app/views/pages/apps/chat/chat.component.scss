@@ -1,0 +1,42 @@
+.mdi:hover {
+    cursor: pointer;
+}
+
+.dropdown {
+    display: none;
+}
+.message-item:hover .dropdown, .message-item:hover .dropdown{
+    display: block;
+}
+
+.mdi-heart {
+    color: #e4606d
+}
+
+
+
+.file-info {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    margin-top: 10px;
+    cursor: pointer;
+    
+}
+
+.file-info .imageclass {
+    width: 100%; /* Adjust the size of the file icon as needed */
+    height: 200px;
+    margin-right: 10px;
+    line-height: 1.5
+}
+.file-info img {
+    width: 29px; /* Adjust the size of the file icon as needed */
+    height: 29px;
+    margin-right: 10px;
+    line-height: 1.5
+}
+
+.file-name {
+    font-weight: bold;
+}

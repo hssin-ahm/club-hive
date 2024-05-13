@@ -1,0 +1,101 @@
+
+
+    <div class="col-md grid-margin"  href="" (click)="onSidebarThemeChange($event)" >
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-title">Create a club</h6>
+  
+          <aw-wizard #wizardForm>
+            
+            <aw-wizard-step stepTitle="step 1">
+              <form (ngSubmit)="onSubmit()" [formGroup]="clubForm">
+  
+                <div class="row mb-3">
+                  <label for="name" class="col-sm-3 col-form-label">Name:</label>
+                  <div class="col-sm-9">
+                    
+                    <input type="text" id="name" class="form-control" formControlName="name" required>
+                    <div class="invalid-feedback">
+                      Please provide a name for the club.
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row mb-3">
+                  <label for="description" class="col-sm-3 col-form-label">Description:</label>
+                  <div class="col-sm-9">
+                    <input type="text" id="description" class="form-control" formControlName="description" required>
+      <div class="invalid-feedback">
+        Please provide a description for the club.
+      </div>
+                  </div>
+                </div>
+  
+                <div class="row mb-3">
+                  <label for="contactInfo" class="col-sm-3 col-form-label">Contact Info:</label>
+                  <div class="col-sm-9">
+                    <input type="text" id="contactInfo" class="form-control" formControlName="contactInfo" required>
+                    <div class="invalid-feedback">
+                      Please provide contact information for the club.
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+               
+                <div class="row mb-3">
+                  <label for="logo" class="col-sm-3 col-form-label">Club Logo:</label>
+                  <div class="col-sm-9">
+                    
+                    <input type="file" id="logo" class="form-control" (change)="onFileSelect($event)" required>
+                    <div class="invalid-feedback">
+                      Please select a logo for the club.
+                    </div>
+                  </div>
+                </div>
+
+<!--*ngIf="clubCreated"-->
+
+                <div class="d-flex justify-content-center mt-2">
+              
+                <button class="btn btn-primary" type="submit">Continue</button>
+                </div>
+              </form>
+            </aw-wizard-step>
+  
+            <aw-wizard-step stepTitle="step 2">
+              <div class="row">
+                <div class="col-md-4" *ngFor="let user of users">
+                  <div class="card" style="width: 18rem;" >
+                    <img class="card-img-top" src="https://via.placeholder.com/150" alt="Card image cap" style="width: auto; height: auto;">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ user.name }}</h5>
+                      <p class="card-text">{{ user.email }}</p>
+                      <button class="btn btn-primary" (click)="assignPresident(user.id)">Assign as President</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </aw-wizard-step>
+  
+            <aw-wizard-step stepTitle="finish">
+              <div class="text-center">
+                <i data-feather="check-circle" appFeatherIcon class="text-success mt-4 mb-2 icon-xxl"></i>
+                <h3 class="text-muted mb-3">The club has been added successfully !</h3>
+               <!-- <p class="w-75 mx-auto mb-4 text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ut nulla nunc. Maecenas arcu sem, hendrerit a tempor quis, sagittis accumsan tellus. In hac habitasse platea dictumst</p>-->
+              </div>
+              <div class="d-flex justify-content-center mt-2">
+               <!-- <button class="btn btn-secondary me-2" type="button" awPreviousStep>Back</button>-->
+                <button class="btn btn-success" type="button" (click)="finishFunction()">Finish</button>
+              </div>
+            </aw-wizard-step>
+  
+          </aw-wizard>
+  
+        </div>
+      </div>
+    </div> <!-- col -->
+  
+ 

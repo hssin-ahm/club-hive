@@ -1,0 +1,148 @@
+<nav class="page-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/dashboard">Club Hive</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Libary</li>
+    </ol>
+</nav>
+
+
+<br>
+<br>
+<div *ngIf="fileStatus.status==='progress'">
+    <div class="progress">
+        <div [style.width.%]="fileStatus.percent" class="progress-bar progress-bar-animated bg-info" role="progressbar"
+            aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+            {{ fileStatus.requestType }} {{ fileStatus.percent }}
+        </div>
+    </div>
+    <hr>
+</div>
+
+<div class="row">
+    <div class="col-md-12 stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-title">Add a new resource</h6>
+                <form [formGroup]="myForm" (ngSubmit)="submitForm()">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label class="form-label">title</label>
+                                <input type="text" class="form-control" placeholder="Enter the name"
+                                    formControlName="name">
+                            </div>
+                        </div><!-- Col -->
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <h6 class="card-title">Category</h6>
+
+                                <ng-select [items]="categories" bindLabel="name" bindValue="id"
+                                    placeholder="type to search" formControlName="category">
+                                </ng-select>
+                                <p class="btn btn-primary" (click)="openBasicModal(basicModal)">Add
+                                    Category</p>
+                                <!-- Modal -->
+
+                            </div>
+                        </div><!-- Col -->
+                    </div><!-- Row -->
+                    <div class="row">
+                        <form enctype="multipart/form-data">
+                            <fieldset>
+                                <div class="form-group">
+                                    <div>
+                                        <label for="exampleFormControlTextarea1" class="form-label">Upload
+                                            resources</label>
+
+                                        <input type="file" (change)="onUploadFiles($event)" name="files" multiple
+                                            class="form-control" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div><!-- Row -->
+
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"
+                                    formControlName="description"></textarea>
+                            </div>
+                        </div><!-- Col -->
+
+                    </div><!-- Row -->
+
+                    <button type="submit" class="btn btn-primary submit">Submit form</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <ngb-accordion [closeOthers]="false" activeIds="faq1" *ngFor="let cat of categories">
+
+                    <ngb-panel id="faq2" title="{{cat.name}}">
+                        <ng-template ngbPanelContent>
+                            <div class="d-flex align-items-start" *ngFor="let resource of getResources(cat)"
+                                style="margin-bottom: 20px; border-bottom: 1px solid rgb(79, 78, 78);">
+                                <img src="./assets/images/{{getImagewithResourceType(resource.filesName[0].name)}}"
+                                    class="wd-50 wd-sm-100 me-3" alt="...">
+                                <div>
+                                    <h5 class="mb-2">{{resource.name}} <strong>#{{resource.category.name}}</strong></h5>
+                                    {{resource.description}}
+
+                                    <div class="d-flex align-items-start mt-3">
+                                        <div class="js-upload-finished">
+                                            <div class="list-group" *ngFor="let file of resource.filesName">
+
+                                                <a class="list-group-item list-group-item-success"
+                                                    (click)="onDownloadFile(file.name)"
+                                                    style="cursor: pointer; display: flex; justify-content: space-between; margin-bottom: 20px;">
+                                                    <div>
+                                                        <img src="./assets/images/{{getImagewithResourceType(file.name)}}"
+                                                            class="wd-10 wd-sm-20 me-3" alt="...">
+                                                        {{file.name}}
+                                                    </div>
+                                                    <div>
+                                                        <a class="float-right" style="margin-left: 50px;">
+                                                            <i class="mdi mdi-arrow-down-bold-circle"></i></a>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ngb-panel>
+
+                </ngb-accordion>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #basicModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
+        <button type="button" class="btn-close" (click)="modal.close('by: close icon')" aria-label="Close"></button>
+    </div>
+    <form [formGroup]="catForm">
+        <div class="modal-body">
+            <label class="form-label">Category name</label>
+            <input type="text" class="form-control" placeholder="Enter the name" formControlName="name">
+        </div>
+    </form>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('by: close button')">Close</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('by: save button')">Save changes</button>
+    </div>
+</ng-template>

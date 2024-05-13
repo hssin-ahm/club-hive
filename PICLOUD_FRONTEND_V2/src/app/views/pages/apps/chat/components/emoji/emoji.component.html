@@ -1,0 +1,4 @@
+<button type="button" class="btn border btn-icon rounded-circle me-2" ngbTooltip="Emoji">
+    <i (click)="toggled = !toggled" [(emojiPickerIf)]="toggled" [emojiPickerDirection]="'top'"
+        (emojiPickerSelect)="handleSelection($event)" class="feather icon-smile text-muted"></i>
+</button>

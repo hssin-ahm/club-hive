@@ -1,0 +1,35 @@
+<div class="row w-100 mx-0 auth-page">
+  <div class="col-md-8 col-xl-6 mx-auto">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="auth-form-wrapper px-4 py-5 mt-5">
+            <a routerLink="." class="nobleui-logo d-block mb-2">CLUB<span>HIVE</span></a>
+            <h5 class="text-muted fw-normal mb-4">Welcome back! Log in to your account.</h5>
+            <!-- Display error message -->
+            <div *ngIf="loginError" class="alert alert-danger">
+              {{ loginError }}
+            </div>
+            <form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="forms-sample">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" formControlName="email">
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" autocomplete="current-password" formControlName="password" placeholder="Password">
+              </div>
+              <div class="mb-2">
+                <a class="form-check-label" (click)="forgotPassword()" style="color: blue; text-decoration: underline; cursor: pointer;">Reset Password</a>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0 w-25" >Login</button>
+              </div>
+              <a routerLink="/auth/register" class="d-block mt-3 text-muted">Not a user? Sign up</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

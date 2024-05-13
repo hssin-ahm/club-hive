@@ -1,0 +1,54 @@
+<nav class="page-breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink=".">Users</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Liste des invitations</li>
+  </ol>
+</nav>
+
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Liste des invitations</h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Liste des invitations</h6>
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+        <div class="table-responsive">
+          <ngx-datatable
+            class="bootstrap"
+            [rows]="rows"
+            [loadingIndicator]="loadingIndicator"
+            [columnMode]="ColumnMode.force"
+            [footerHeight]="50"
+            [limit]="10"
+            rowHeight="auto">
+            <ngx-datatable-column name="Name" prop="name"></ngx-datatable-column>
+            <ngx-datatable-column name="Email" prop="email"></ngx-datatable-column>
+            <ngx-datatable-column name="Role" prop="role"></ngx-datatable-column>
+            <ngx-datatable-column name="Etat" prop="etat"></ngx-datatable-column>
+            <ngx-datatable-column name="Actions">
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                <button class="btn btn-success" (click)="acceptUser(row.id); clearMessages()">Accept</button> &nbsp;
+                <button class="btn btn-danger" (click)="rejectUser(row.id); clearMessages()">Reject</button>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

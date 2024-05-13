@@ -1,0 +1,83 @@
+<!-- Service Start -->
+
+        <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">My clubs</h6>
+                <owl-carousel-o [options]="autoPlayExampleOptions">
+                  <ng-template carouselSlide *ngFor="let club of clubs; let i = index" >
+                   
+                <img  src="http://127.0.0.1/img/{{club.logo}}" alt="" style="object-fit: cover; width: 350px; height: 200px;" >
+               
+                  <p class="card__title">
+                    {{club.name}}
+                   
+                  </p><p class="card__description">{{club.contactInfo}}</p>
+            
+                  </ng-template>
+                </owl-carousel-o>
+              </div>
+            </div>
+          </div>
+
+
+          <br/>
+          <br/>
+          <br/>
+         
+          <app-myapplication></app-myapplication>
+         <!-- <div class="col-md-12 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Auto Play</h6>
+                <owl-carousel-o [options]="autoPlayExampleOptions">
+                  <ng-template carouselSlide *ngFor="let slide of slidesStore" [id]="slide.id">
+                    <img [src]="slide.src" [alt]="slide.alt" [title]="slide.title">
+                  </ng-template>
+                </owl-carousel-o>
+              </div>
+            </div>
+          </div>-->
+       <!-- <div class="row g-4">
+            <div class="col" *ngFor="let club of clubs; let i = index" >
+            <div class="card mb-10"   > 
+             
+      
+                <img class="img-fluid" src="http://127.0.0.1:8080/img/{{club.logo}}" alt="" style="object-fit: cover; width: 350px; height: 200px;">
+                <div class="card__content">
+                  <p class="card__title">
+                    {{club.name}}
+                   
+                  </p><p class="card__description">{{club.contactInfo}}</p>
+                </div>
+      
+        
+        </div>
+              </div>
+           -->
+          
+          <!--  <div *ngFor="let club of finalclubs; let i = index" class="col-lg-3 col-sm-6 wow fadeInUp" [attr.data-wow-delay]="i * 0.2 + 's'" (click)="goToAvailableTest(club.id)">
+                
+                <div class="service-item text-center pt-3">
+                    <div class="p-4">
+                        
+                        <img class="img-fluid" src="http://127.0.0.1:8080/img/{{club.logo}}" alt="" style="object-fit: cover; width: 150px; height: 150px;">
+                        <h5 class="mb-3">{{club.name}}</h5>
+                        <p>{{club.description}}</p>
+                        <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2" ></i>Join us</p>
+                    </div>
+                   
+                   
+                </div>
+                <div class="position-relative d-flex justify-content-center" style="margin-top: -23px;">
+                    <div class="bg-light d-flex justify-content-center pt-2 px-1">
+                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-sm-square btn-primary mx-1" href=""><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>-->
+
+<!-- Service End -->

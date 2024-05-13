@@ -1,0 +1,27 @@
+<p>behaviorscore-create works!</p>
+<form [formGroup]="behaviorScoreForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="behaviorType">Behavior Type</label>
+        <select id="behaviorType" class="form-control" formControlName="behaviorType">
+          <option *ngFor="let type of behaviorTypes" [value]="type">{{type}}</option>
+        </select>
+      </div>
+  
+    <div class="form-group">
+      <label for="score">Score</label>
+      <input type="number" id="score" class="form-control" formControlName="score">
+    </div>
+  
+    <div class="form-group">
+      <label for="dateRecorded">Date Recorded</label>
+      <input type="date" id="dateRecorded" class="form-control" formControlName="dateRecorded">
+    </div>
+  
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" class="form-control" formControlName="description"></textarea>
+    </div>
+  
+    <button type="submit" class="btn btn-primary" [disabled]="!behaviorScoreForm.valid">Submit</button>
+    <p [class.success]="messageType === 'success'" [class.error]="messageType === 'error'">{{ message }}</p>
+  </form>

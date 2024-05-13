@@ -1,0 +1,492 @@
+<div class="row chat-wrapper">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row position-relative">
+          <div class="col-lg-4 chat-aside border-end-lg">
+            <div class="aside-content">
+              <div class="aside-header">
+                <div class="d-flex justify-content-between align-items-center pb-2 mb-2">
+                  <div class="d-flex align-items-center">
+                    <figure class="me-2 mb-0">
+                      <img src="http://localhost/img/{{thisUser.profileImage}}" class="img-sm rounded-circle"
+                        alt="profile">
+                      <div class="status online"></div>
+                    </figure>
+                    <div>
+                      <h6>{{thisUser?.name}}</h6>
+                      <p class="text-muted tx-13"></p>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="search-form">
+                  <div class="input-group">
+                    <div class="input-group-text">
+                      <i class="feather icon-search icon-md cursor-pointer"></i>
+                    </div>
+                    <input [(ngModel)]="searchQuery" type="text" class="form-control" placeholder="Search here...">
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="aside-body">
+                <ul ngbNav #defaultNav="ngbNav" [(activeId)]="defaultNavActiveId" class="nav-tabs nav-fill mt-3">
+                  <li [ngbNavItem]="1">
+                    <a ngbNavLink>
+                      <div class="d-flex flex-row flex-lg-column flex-xl-row align-items-center justify-content-center">
+                        <i class="feather icon-message-square icon-xs me-sm-2 me-lg-0 me-xl-2 mb-md-1 mb-xl-0"></i>
+                        <p class="d-none d-sm-block">Chats</p>
+                      </div>
+                    </a>
+                    <ng-template ngbNavContent>
+                      <div class="ps" [perfectScrollbar]>
+                        <p class="text-muted mb-1">Recent chats</p>
+                        <ul class="list-unstyled chat-list px-1">
+                          <li class="chat-item pe-1" *ngFor="let user of filteredUsers">
+                            <a [routerLink]="['/apps/chat', {email: user.user.email}]" (click)="getOtherUser()"
+                              class="d-flex align-items-center">
+                              <figure class="mb-0 me-2">
+                                <img src="http://localhost/img/{{user.user.profileImage}}" class="img-xs rounded-circle"
+                                  alt="user">
+                                <div class="status online"></div>
+                              </figure>
+                              <div class="d-flex justify-content-between flex-grow-1 border-bottom">
+                                <div>
+                                  <p class="text-body fw-bolder">{{user.user.name}}</p>
+                                  <div style="display: flex;">
+                                    <p class="text-muted tx-13"><span>{{user.sender == thisUserEmail ? 'You: ' :
+                                        ''}}</span>
+                                      {{user.lastMsg}}</p>
+                                    <div class="d-flex align-items-center" *ngIf="user.lastMsg == ''">
+                                      <i class="feather icon-image text-muted icon-md mb-2px"></i>
+                                      <p class="text-muted ms-1">Media</p>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="d-flex flex-column align-items-end">
+                                  <p class="text-muted tx-13 mb-1">{{whenWastheTimeItPublished(user.tstamp)}}</p>
+                                </div>
+                              </div>
+                            </a>
+                          </li>
+
+                        </ul>
+                      </div>
+                    </ng-template>
+                  </li> <!-- End chat tab-->
+                  <li [ngbNavItem]="2">
+                    <a ngbNavLink>
+                      <div class="d-flex flex-row flex-lg-column flex-xl-row align-items-center justify-content-center">
+                        <i class="feather icon-users icon-xs me-sm-2 me-lg-0 me-xl-2 mb-md-1 mb-xl-0"></i>
+                        <p class="d-none d-sm-block">Groups</p>
+                      </div>
+                    </a>
+                    <ng-template ngbNavContent>
+                      <div class="ps" [perfectScrollbar]>
+                        <p class="text-muted mb-1">Recent group chat</p>
+                        <ul class="list-unstyled chat-list px-1">
+                          <li class="chat-item pe-1" *ngFor="let club of clubs">
+                            <a [routerLink]="['/apps/chat', {clubname: club.name}]" (click)="onConnectToGroupChat()"
+                              class="d-flex align-items-center">
+                              <figure class="mb-0 me-2">
+                                <img src="http://localhost/img/{{club.logo}}" class="img-xs rounded-circle" alt="user">
+                                <div class="status online"></div>
+                              </figure>
+                              <div class="d-flex justify-content-between flex-grow-1 border-bottom">
+                                <div>
+                                  <p class="text-body fw-bolder">{{club.name}}</p>
+                                  <div style="display: flex;">
+                                    <p class="text-muted tx-13"><span>Group conversation</span></p>
+                                  </div>
+                                </div>
+                              </div>
+                            </a>
+                          </li>
+
+                        </ul>
+                      </div>
+                    </ng-template>
+                  </li> <!-- End calls tab-->
+                </ul>
+                <div [ngbNavOutlet]="defaultNav" class="mt-3"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 chat-content">
+            <div class="chat-header border-bottom pb-2">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center" *ngIf="otherUser && !clubname; else elsecomp">
+                  <i (click)="backToChatList()"
+                    class="feather icon-corner-up-left icon-md me-2 ms-n2 text-muted d-lg-none"></i>
+                  <figure class="mb-0 me-2">
+                    <img src="http://localhost/img/{{otherUser.profileImage}}" class="img-sm rounded-circle"
+                      alt="image">
+                    <div class="status online"></div>
+                    <div class="status online"></div>
+                  </figure>
+                  <div>
+                    <p>{{otherUser?.name}}</p>
+                    <p class="text-muted tx-13">Send a message...</p>
+                  </div>
+                </div>
+                <ng-template #elsecomp>
+                  <div class="chat-message-right pb-4" *ngIf="!clubname else clubnam">
+                    <div class="flex-grow-1 pl-3">
+                      <p class="text-muted tx-13">Please select a chat...</p>
+                    </div>
+                  </div>
+
+                </ng-template>
+                <ng-template #clubnam>
+                  <div class="chat-message-right pb-4">
+                    <div class="flex-grow-1 pl-3">
+                      <p class="text-muted tx-13"><strong>Group name: </strong>{{clubname}}</p>
+                    </div>
+                  </div>
+                </ng-template>
+                <div class="d-flex align-items-center me-n1">
+                  <a routerLink="/apps/video-call" target="_blank">
+                    <i class="feather icon-video icon-lg text-muted me-3" ngbTooltip="Start video call"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="chat-body" [perfectScrollbar]>
+              <ul class="messages">
+                <div class="chat-message-right pb-4" *ngIf="messages.length == 0">
+                  <p style="color: #888; font-style: italic;">No messages available</p>
+                </div>
+
+                <div *ngIf="clubname">
+                  <div *ngFor="let msg of messages" #chat>
+                    <li class="message-item {{msg.sender !== thisUser!.email?'friend':'me'}}">
+                      <div class="content" *ngIf="msg.deleteForAll;">
+                        <div class="message">
+                          <p style="color: #888; font-style: italic;" class="text-muted"
+                            ngbTooltip="{{whenWasItPublished(msg.t_stamp)}}">Message deleted</p>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="message-item friend " *ngIf="msg.sender !== thisUser!.email && !msg.deleteForAll;">
+                      <img src="http://localhost/img/{{msg.profileimage}}" class="img-xs rounded-circle" alt="avatar"
+                        ngbTooltip="{{msg.sender}}">
+                      <div class="content">
+                        <div class="message" style="display: flex;">
+                          <div class="bubble" ngbTooltip="{{whenWasItPublished(msg.t_stamp)}}">
+                            <p>{{ msg.content }}</p>
+                            <div class="file-info" style="display: flex; justify-content: space-between;"
+                              *ngIf="msg.filename">
+                              <img class="imageclass"
+                                (click)="openVerticalCenteredModal(verticalCenteredModal, msg.filename)"
+                                *ngIf="getImagewithResourceType(msg.filename) == 'image' else otherlogo"
+                                src="{{url}}/api/getfile/{{msg.filename}}" alt="File Icon">
+                              <ng-template #otherlogo>
+                                <div (click)="onDownloadFile(msg.filename)">
+                                  <img src="./assets/images/{{getImagewithResourceType(msg.filename)}}"
+                                    class="wd-50 wd-sm-100 me-3" alt="..."
+                                    *ngIf="getImagewithResourceType(msg.filename) != 'video' else showvdf">
+                                  <span class="file-name"
+                                    *ngIf="getImagewithResourceType(msg.filename) != 'video'">{{msg.filename}}</span>
+                                  <ng-template #showvdf>
+                                    <video style="width: 100%; height: 200px;" controls
+                                      (click)="openVerticalCenteredModal(verticalCenteredModal, msg.filename)">
+                                      <source src="{{url}}/api/getfile/{{msg.filename}}" type="video/mp4">
+                                    </video>
+                                  </ng-template>
+                                </div>
+                              </ng-template>
+                            </div>
+                          </div>
+                          <div (click)="react(msg.ms_id, !msg.reaction)">
+                            <ng-template #notFillHeat>
+                              <i style="margin-left: 5px;" class="mdi mdi-heart-outline dropdown" #notFillHeat></i>
+                            </ng-template>
+                            <i style="margin-left: 5px;" class="mdi mdi-heart"
+                              *ngIf="msg.reaction; else notFillHeat"></i>
+                          </div>
+                          <div class="dropdown" style="margin-right: 5px;" ngbDropdown>
+                            <button class="btn p-0 no-dropdown-toggle-icon" type="button" id="dropdownMenuButton"
+                              ngbDropdownToggle>
+                              <i class="feather icon-chevron-down icon-md text-muted pb-3px" ngbTooltip="Settings"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+                              <a (click)="deletefor(msg.ms_id, false)"
+                                class="dropdown-item d-flex align-items-center"><i
+                                  class="feather icon-delete  icon-xs me-2"></i> <span class="">Delete
+                                  for
+                                  you</span></a>
+                            </div>
+                          </div>
+
+                        </div>
+                        <span>{{
+                          whenWastheTimeItPublished(msg.t_stamp)
+                          }}</span>
+                      </div>
+                    </li>
+                    <li class="message-item me"
+                      *ngIf="msg.sender === thisUser!.email && msg.whoMakeDelete != thisUserEmail;">
+                      <img src="http://localhost/img/{{msg.profileimage}}" class="img-xs rounded-circle" alt="avatar">
+                      <div class="content">
+                        <div style="display: flex; ">
+                          <div class="dropdown" style="margin-right: 5px;" ngbDropdown>
+                            <button class="btn p-0 no-dropdown-toggle-icon" type="button" id="dropdownMenuButton"
+                              ngbDropdownToggle>
+                              <i class="feather icon-chevron-down icon-md text-muted pb-3px" ngbTooltip="Settings"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+                              <a (click)="deletefor(msg.ms_id, false)"
+                                class="dropdown-item d-flex align-items-center"><i
+                                  class="feather icon-delete  icon-xs me-2"></i> <span class="">Delete
+                                  for
+                                  you</span></a>
+                              <a (click)="deletefor(msg.ms_id, true)" class="dropdown-item d-flex align-items-center"><i
+                                  class="feather icon-edit-2 icon-xs me-2"></i> <span class="">Delete
+                                  for
+                                  all</span></a>
+                            </div>
+                          </div>
+                          <i *ngIf="msg.reaction;" style="margin-right: 5px;" class="mdi mdi-heart"></i>
+                          <div class="message">
+                            <div class="bubble" ngbTooltip="{{whenWasItPublished(msg.t_stamp)}}">
+                              <p>{{ msg.content }}</p>
+                              <div class="file-info" style="display: flex; justify-content: space-between;"
+                                *ngIf="msg.filename">
+                                <img class="imageclass"
+                                  (click)="openVerticalCenteredModal(verticalCenteredModal, msg.filename)"
+                                  *ngIf="getImagewithResourceType(msg.filename) == 'image' else otherlogo"
+                                  src="{{url}}/api/getfile/{{msg.filename}}" alt="File Icon">
+                                <ng-template #otherlogo (click)="onDownloadFile(msg.filename)">
+                                  <img (click)="onDownloadFile(msg.filename)"
+                                    src="./assets/images/{{getImagewithResourceType(msg.filename)}}" alt="..."
+                                    *ngIf="getImagewithResourceType(msg.filename) != 'video' else showvd">
+                                  <span (click)="onDownloadFile(msg.filename)" class="file-name"
+                                    *ngIf="getImagewithResourceType(msg.filename) != 'video'">{{msg.filename}}</span>
+
+                                  <ng-template #showvd>
+                                    <video style="width: 100%; height: 200px;" controls
+                                      (click)="openVerticalCenteredModal(verticalCenteredModal, msg.filename)">
+                                      <source src="{{url}}/api/getfile/{{msg.filename}}" type="video/mp4">
+                                    </video>
+                                  </ng-template>
+
+                                </ng-template>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="message">
+                          <span>{{whenWastheTimeItPublished(msg.t_stamp)}}</span>
+
+
+                        </div>
+                      </div>
+                    </li>
+                  </div>
+                </div>
+
+                <div *ngIf="!clubname">
+                  <div *ngFor="let msg of messages" #chat>
+                    <li class="message-item {{msg.sender === otherUser!.email?'friend':'me'}}">
+                      <div class="content" *ngIf="msg.deleteForAll;">
+                        <div class="message">
+                          <p style="color: #888; font-style: italic;" class="text-muted"
+                            ngbTooltip="{{whenWasItPublished(msg.t_stamp)}}">Message deleted</p>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="message-item friend " *ngIf="msg.sender === otherUser!.email && !msg.deleteForAll;">
+                      <img src="http://localhost/img/{{otherUser.profileImage}}" class="img-xs rounded-circle"
+                        alt="avatar">
+                      <div class="content">
+                        <div class="message" style="display: flex;">
+                          <div class="bubble" ngbTooltip="{{whenWasItPublished(msg.t_stamp)}}">
+                            <p>{{ msg.content }}</p>
+                            <div class="file-info" style="display: flex; justify-content: space-between;"
+                              *ngIf="msg.filename">
+                              <img class="imageclass"
+                                (click)="openVerticalCenteredModal(verticalCenteredModal, msg.filename)"
+                                *ngIf="getImagewithResourceType(msg.filename) == 'image' else otherlogo"
+                                src="{{url}}/api/getfile/{{msg.filename}}" alt="File Icon">
+                              <ng-template #otherlogo>
+                                <div (click)="onDownloadFile(msg.filename)">
+                                  <img src="./assets/images/{{getImagewithResourceType(msg.filename)}}"
+                                    class="wd-50 wd-sm-100 me-3" alt="..."
+                                    *ngIf="getImagewithResourceType(msg.filename) != 'video' else showvdf">
+                                  <span class="file-name"
+                                    *ngIf="getImagewithResourceType(msg.filename) != 'video'">{{msg.filename}}</span>
+                                  <ng-template #showvdf>
+                                    <video style="width: 100%; height: 200px;" controls
+                                      (click)="openVerticalCenteredModal(verticalCenteredModal, msg.filename)">
+                                      <source src="{{url}}/api/getfile/{{msg.filename}}" type="video/mp4">
+                                    </video>
+                                  </ng-template>
+                                </div>
+                              </ng-template>
+                            </div>
+                          </div>
+                          <div (click)="react(msg.ms_id, !msg.reaction)">
+                            <ng-template #notFillHeat>
+                              <i style="margin-left: 5px;" class="mdi mdi-heart-outline dropdown" #notFillHeat></i>
+                            </ng-template>
+                            <i style="margin-left: 5px;" class="mdi mdi-heart"
+                              *ngIf="msg.reaction; else notFillHeat"></i>
+                          </div>
+                          <div class="dropdown" style="margin-right: 5px;" ngbDropdown>
+                            <button class="btn p-0 no-dropdown-toggle-icon" type="button" id="dropdownMenuButton"
+                              ngbDropdownToggle>
+                              <i class="feather icon-chevron-down icon-md text-muted pb-3px" ngbTooltip="Settings"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+                              <a (click)="deletefor(msg.ms_id, false)"
+                                class="dropdown-item d-flex align-items-center"><i
+                                  class="feather icon-delete  icon-xs me-2"></i> <span class="">Delete
+                                  for
+                                  you</span></a>
+                            </div>
+                          </div>
+
+                        </div>
+                        <span>{{
+                          whenWastheTimeItPublished(msg.t_stamp)
+                          }}</span>
+                      </div>
+                    </li>
+                    <li class="message-item me"
+                      *ngIf="msg.sender !== otherUser!.email && msg.whoMakeDelete != thisUserEmail;">
+                      <img src="http://localhost/img/{{thisUser.profileImage}}" class="img-xs rounded-circle"
+                        alt="avatar">
+                      <div class="content">
+                        <div style="display: flex; ">
+                          <div class="dropdown" style="margin-right: 5px;" ngbDropdown>
+                            <button class="btn p-0 no-dropdown-toggle-icon" type="button" id="dropdownMenuButton"
+                              ngbDropdownToggle>
+                              <i class="feather icon-chevron-down icon-md text-muted pb-3px" ngbTooltip="Settings"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" ngbDropdownMenu>
+                              <a (click)="deletefor(msg.ms_id, false)"
+                                class="dropdown-item d-flex align-items-center"><i
+                                  class="feather icon-delete  icon-xs me-2"></i> <span class="">Delete
+                                  for
+                                  you</span></a>
+                              <a (click)="deletefor(msg.ms_id, true)" class="dropdown-item d-flex align-items-center"><i
+                                  class="feather icon-edit-2 icon-xs me-2"></i> <span class="">Delete
+                                  for
+                                  all</span></a>
+                            </div>
+                          </div>
+                          <i *ngIf="msg.reaction;" style="margin-right: 5px;" class="mdi mdi-heart"></i>
+                          <div class="message">
+                            <div class="bubble" ngbTooltip="{{whenWasItPublished(msg.t_stamp)}}">
+                              <p>{{ msg.content }}</p>
+                              <div class="file-info" style="display: flex; justify-content: space-between;"
+                                *ngIf="msg.filename">
+                                <img class="imageclass"
+                                  (click)="openVerticalCenteredModal(verticalCenteredModal, msg.filename)"
+                                  *ngIf="getImagewithResourceType(msg.filename) == 'image' else otherlogo"
+                                  src="{{url}}/api/getfile/{{msg.filename}}" alt="File Icon">
+                                <ng-template #otherlogo (click)="onDownloadFile(msg.filename)">
+                                  <img (click)="onDownloadFile(msg.filename)"
+                                    src="./assets/images/{{getImagewithResourceType(msg.filename)}}" alt="..."
+                                    *ngIf="getImagewithResourceType(msg.filename) != 'video' else showvd">
+                                  <span (click)="onDownloadFile(msg.filename)" class="file-name"
+                                    *ngIf="getImagewithResourceType(msg.filename) != 'video'">{{msg.filename}}</span>
+
+                                  <ng-template #showvd>
+                                    <video style="width: 100%; height: 200px;" controls
+                                      (click)="openVerticalCenteredModal(verticalCenteredModal, msg.filename)">
+                                      <source src="{{url}}/api/getfile/{{msg.filename}}" type="video/mp4">
+                                    </video>
+                                  </ng-template>
+
+                                </ng-template>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="message">
+                          <span>{{whenWastheTimeItPublished(msg.t_stamp)}}</span>
+
+
+                        </div>
+                      </div>
+                    </li>
+                  </div>
+                </div>
+
+              </ul>
+
+            </div>
+            <div class="chat-footer d-flex" *ngIf="otherUserEmail || clubname">
+              <div *ngIf="showicon else showdeficon">
+                <app-emoji (dataEmitted)="receiveDataFromChild($event)"></app-emoji>
+              </div>
+              <ng-template #showdeficon>
+                <button type="button" class="btn border btn-icon rounded-circle me-2" ngbTooltip="Emoji">
+                  <i class="feather icon-smile text-muted"></i>
+                </button>
+              </ng-template>
+              <div class="d-none d-md-block">
+                <button (click)="openFileInput()" class="btn border btn-icon rounded-circle me-2"
+                  ngbTooltip="Attatch files" *ngIf="fileStatus.status != 'done' else checkIcon">
+                  <i class="feather icon-paperclip text-muted"></i>
+                </button>
+                <ng-template #checkIcon>
+                  <button (click)="openFileInput()" class="btn border btn-icon rounded-circle me-2"
+                    ngbTooltip="Downloaded file: {{filenames[0]}}" style="background-color: rgb(123, 227, 119);">
+                    <i class="feather icon-check-circle opacity-75"></i>
+                  </button>
+
+                </ng-template>
+
+                <input type="file" style="display:none" (change)="onUploadFiles($event)" name="files" id="fileInput"
+                  #fileInput class="form-control" />
+              </div>
+              <form class="search-form flex-grow-1 me-2">
+                <div class="input-group">
+                  <div *ngIf="fileStatus.status==='progress' else inputtext">
+                    <div class="progress">
+                      <p class="mb-3" style="width: 600px;"><ngb-progressbar type="primary" [value]="fileStatus.percent"
+                          [striped]="true">
+                          {{ fileStatus.requestType }} {{ fileStatus.percent }}</ngb-progressbar></p>
+                    </div>
+                  </div>
+                  <ng-template #inputtext>
+                    <input [formControl]="newMessage" type="text" class="form-control rounded-pill" id="chatForm"
+                      placeholder="Type a message" [(ngModel)]="receivedicon">
+                  </ng-template>
+                </div>
+              </form>
+              <div>
+                <button type="button" class="btn btn-primary btn-icon rounded-circle" (click)="sendMsg()">
+                  <i class="feather icon-send"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<ng-template #verticalCenteredModal let-modal>
+  <div class="modal-header">
+    <button (click)="onDownloadFile(imagename)" type="button" class="btn btn-primary btn-icon-text">
+      <i class="feather icon-download  btn-icon-prepend"></i>
+      Download
+    </button>
+    <button type="button" class="btn-close" (click)="modal.close()" aria-label="Close"></button>
+  </div>
+  <div class="modal-body">
+    <img style="width: 100%; height:  100%;" src="{{url}}/api/getfile/{{imagename}}" alt="File Icon">
+  </div>
+</ng-template>

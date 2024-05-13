@@ -1,0 +1,6 @@
+<h1 class="quote-heading">Inspirational Quotes</h1>
+<div *ngIf="quote" class="quote-container">
+  <p class="quote-content">{{ quote.content }}</p>
+  <p class="quote-author">- {{ quote.author }}</p>
+</div>
+<img *ngIf="lowername" [src]="'https://zenquotes.io/img/' + lowername + '.jpg'" alt="Author Image" class="author-image">

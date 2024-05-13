@@ -1,0 +1,44 @@
+<!-- Button trigger modal -->
+<button class="btn btn-primary" (click)="openVerticalCenteredModal(verticalCenteredModal)">Create a new department</button>
+<!-- Modal -->
+<ng-template #verticalCenteredModal let-modal>
+  <app-department-create></app-department-create>
+  
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="reloadPage()">Close</button>
+    
+  </div>
+</ng-template>
+<div class="container">
+
+  <div *ngIf="departments.length > 0; else noDepartments" class="table-responsive container" >
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let department of departments">
+          <td>{{ department.id }}</td>
+          <td>{{ department.name }}</td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Department actions" *ngIf="department.id !== null">
+              <button type="button" class="btn btn-info" (click)="goToDepartmentDetails(department.id)">View Details</button>
+              <button type="button" class="btn btn-warning" (click)="goToDepartmentUpdate(department.id)">Update</button>
+              <button type="button" class="btn btn-danger" (click)="deleteDepartment(department.id)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noDepartments>
+    <p>No departments available.</p>
+  </ng-template>
+
+</div>

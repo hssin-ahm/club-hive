@@ -1,0 +1,34 @@
+
+<table class="table">
+    <thead>
+      <tr>
+       
+
+        <th>Description</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of requests">
+        
+        <td>{{ request.description }}</td>
+        <td>{{ request.userName}}</td> <!-- Update this based on your User model -->
+        <td>{{ request.userEmail}}</td>
+        <td>
+            <p [ngStyle]="{
+              'background-color': request.status === Status.REJECTED ? 'red' :
+                                  request.status === Status.APPROVED ? 'green' : 'blue',
+              'color': 'white'
+            }">{{ Status[request.status] }}</p>
+          </td>
+          <td>
+            <button *ngIf="request.status === Status.PENDING" class="btn btn-success" (click)="acceptRequest(request)">Accept</button>
+            <button *ngIf="request.status === Status.PENDING" class="btn btn-danger" (click)="rejectRequest(request)">Reject</button>
+          </td>
+      </tr>
+    </tbody>
+  </table>
+  
