@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mysql:
+    container_name: mysql-bsn
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: clubs
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+    volumes:
+      - mysql:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+      - spring-demo
+    restart: unless-stopped
+
+networks:
+  spring-demo:
+    driver: bridge
+
+volumes:
+  mysql:
+    driver: local
