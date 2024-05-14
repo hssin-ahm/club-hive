@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  uri: 'https://club-hive.orangepond-2725939e.eastus.azurecontainerapps.io',
 };

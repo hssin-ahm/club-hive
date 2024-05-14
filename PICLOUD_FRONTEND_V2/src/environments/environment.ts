@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  uri: 'http://localhost:8087',
+  uri: 'https://club-hive.orangepond-2725939e.eastus.azurecontainerapps.io',
 };
 
 /*
