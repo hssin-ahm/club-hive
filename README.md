@@ -11,7 +11,7 @@ ClubHive is all about creating a more connected and efficient campus life. It is
 
 - Direct chat functionality
 - Group chat functionality
-- Sending text, emoji, photo, and video messages
+- Sending text, emoji, photo, file and video messages
 - Message deletion functionality
 - Video calling functionality
 - Delete feature (delete for you, delete for all)
